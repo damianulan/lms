@@ -2,7 +2,7 @@
     $nominal = $method==='GET' ? 'GET':'POST';
 @endphp
 
-<form {{ $id ? 'id="'.$id.'"':''  }} action="{{ $action }}" method="{{ $nominal }}" class="col-md-12 form-{{ $template }}{{ $classes ? ' '.$classes:''  }}">
+<form {{ $id ? 'id="'.$id.'"':''  }} action="{{ $action }}" method="{{ $nominal }}" class="col-md-12 form-{{ $template }}{{ $classes ? ' '.$classes:''  }}" enctype="multipart/form-data">
     @method($method)
     @csrf
     @foreach ($elements as $element)
@@ -20,7 +20,7 @@
             <div class="col-md-8">
                 {{ $element->render() }}
             </div>
-        </div> 
+        </div>
     @endforeach
     @if ($submit)
         <div class="row">

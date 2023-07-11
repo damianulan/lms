@@ -2,17 +2,20 @@
 
 namespace App\Models\Elearning;
 
+use App\Casts\CheckboxCast;
+use App\Facades\Forms\Elements\Checkbox;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UUID;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\Vendors\TrixFields;
-
-use App\Models\Elearning\CourseCategory;
+use App\Traits\RequestForms;
+use App\Facades\TrixField\TrixFieldCast;
+use App\Lib\Theme;
 
 class Course extends Model
 {
-    use HasFactory, UUID, SoftDeletes, TrixFields;
+    use HasFactory, UUID, SoftDeletes, RequestForms, TrixFields;
 
     /**
      * The attributes that are mass assignable.
@@ -32,18 +35,18 @@ class Course extends Model
     ];
 
     protected $casts = [
-        'public' => 'boolean',
-        'active' => 'boolean',
-        'visible' => 'boolean',
+        'public' => CheckboxCast::class,
+        'active' => CheckboxCast::class,
+        'visible' => CheckboxCast::class,
 
         // Dates
         'available_from' => 'datetime',
         'available_to' => 'datetime',
+
+        'description' => TrixFieldCast::class,
     ];
 
-    protected $trixFields = [
-        'description',
-    ];
+    protected $storagePath = 'pictures/courses';
 
     public static function getCatalog()
     {
@@ -54,4 +57,11 @@ class Course extends Model
     {
         return $this->belongsTo(CourseCategory::class);
     }
+
+    public function loadPicture()
+    {
+        return $this->picture ? asset("storage/$this->picture"):asset(Theme::imagePath()."courses/course-default-pic.jpg");
+    }
+
+
 }

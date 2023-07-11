@@ -11,7 +11,7 @@ return [
         'general' => [
             'site_name' => 'Nazwa witryny',
             'theme' => 'Szablon',
-            
+            'lang' => 'Język aplikacji',
         ],
         'server' => [
             'mail_host' => 'Adres serwera',
@@ -31,7 +31,7 @@ return [
         'available_to' => 'Dostępny do',
         'picture' => 'Obrazek wiodący kursu',
         'public' => 'Widoczny publicznie',
-        'visible' => 'Ukryty',
+        'visible' => 'Widoczny',
     ],
 
     'placeholders' => [
